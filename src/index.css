@@ -1,0 +1,53 @@
+div .container, html, body {
+    height: 100%;
+    margin: 0;
+    font-family: sans-serif, 'Roboto Slab', serif;
+}
+
+div .container {
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    div .container {
+        flex-direction: column;
+    }
+}
+
+div .box {
+    height: 100px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+div .box button {
+    height: 100px;
+    width: 100px;
+    font-size: larger;
+}
+
+div .box label {
+    height: 100px;
+    width: 100px;
+    line-height: 100px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: xx-large;
+    color: white;
+}
+
+div .boxPos {
+    background-color: #8BC34A;
+}
+
+div .boxNeg {
+    background-color: rgb(236, 20, 67);
+}
