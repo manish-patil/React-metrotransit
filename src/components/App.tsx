@@ -7,13 +7,13 @@ import 'react-dropdown/style.css';
 // import subtractAction from "../actions/subtractAction";
 import getProviders from "../actions/getProviders";
 import getRoutes from "../actions/getRoutes";
+import getDirections from "../actions/getDirections";
 
 class App extends React.Component<any, any>{
     constructor(props: any) {
         super(props);
 
-        // this.add = this.add.bind(this);
-        // this.subtract = this.subtract.bind(this);
+        this.routeChanged = this.routeChanged.bind(this);
     }
 
     componentDidMount() {
@@ -21,13 +21,11 @@ class App extends React.Component<any, any>{
         this.props.getRoutes();
     }
 
-    // add() {
-    //     this.props.add(this.props.result, 1);
-    // }
+    routeChanged(e) {
+        console.log("Route", e.target.value);
 
-    // subtract() {
-    //     this.props.subtract(this.props.result, 1);
-    // }
+        this.props.getDirections(e.target.value);
+    }
 
     render() {
         return (
@@ -37,8 +35,33 @@ class App extends React.Component<any, any>{
                     <Dropdown options={this.props.providers} placeholder="Select a Provider" />
                 </div>
                 <div>
-                <h2>Routes</h2>
-                    <Dropdown options={this.props.routes} placeholder="Select a Route" />
+                    <div>
+                        <h3>Routes</h3>
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                        <select onChange={this.routeChanged} style={{ flex: 1 }}>
+                            {
+                                this.props.routes.map((route) => {
+                                    return <option key={route.value} value={route.value}>{route.label}</option>
+                                })
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <h3>Directions</h3>
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                        {/* <select onChange={this.routeChanged} style={{ flex: 1 }}> */}
+                        <select style={{ flex: 1 }}>
+                            {
+                                this.props.directions.map((direction) => {
+                                    return <option key={direction.value} value={direction.value}>{direction.label}</option>
+                                })
+                            }
+                        </select>
+                    </div>
                 </div>
             </div>
         )
@@ -46,22 +69,18 @@ class App extends React.Component<any, any>{
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
-
     return {
-        // lableStyle: state.result >= 0 ? "boxPos" : "boxNeg",
-        // result: state.result
         providers: state.providers,
-        routes: state.routes
+        routes: state.routes,
+        directions: state.directions
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // add: (currentResult, num) => dispatch(addAction(currentResult, num)),
-        // subtract: (currentResult, num) => dispatch(subtractAction(currentResult, num))
         getProvides: () => dispatch(getProviders()),
-        getRoutes: () => dispatch(getRoutes())
+        getRoutes: () => dispatch(getRoutes()),
+        getDirections: (route) => dispatch(getDirections(route))
     }
 }
 

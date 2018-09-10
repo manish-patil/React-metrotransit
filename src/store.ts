@@ -2,12 +2,11 @@ import { createStore, applyMiddleware } from "redux";
 import logger from "redux-logger";
 import thunk from "redux-thunk";
 
-// import addSubtractReducer from "./reducers/addSutractReducer";
-import routeReducer from "./reducers/routeReducer";
+import MetroTransitReducer from "./reducers/MetroTransitReducer";
 
 const middleware = applyMiddleware(thunk, logger);
 
-export const store = createStore(routeReducer, middleware);
+export const store = createStore(MetroTransitReducer, middleware);
 
 
 // http://svc.metrotransit.org/

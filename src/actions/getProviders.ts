@@ -2,11 +2,10 @@ import axios from "axios";
 
 export default function getProviders() {
     return (dispatch) => {
-        axios.get("http://svc.metrotransit.org/NexTrip/Providers", {
-
+        axios.get("http://svc.metrotransit.org/NexTrip/Providers", {    
         }).then((data) => {
             dispatch({
-                type: "GOT_PROVIDERS",
+                type: "PROVIDERS_RECEIVED",
                 payload: data
             })
         }).catch((err) => {

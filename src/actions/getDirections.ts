@@ -1,15 +1,15 @@
 import axios from "axios";
 
-export default function getRoutes() {
+export default function getDirections(route){
     return (dispatch) => {
-        axios.get("http://svc.metrotransit.org/NexTrip/Routes", {
+        axios.get("http://svc.metrotransit.org/NexTrip/Directions/" + route, {            
         }).then((data) => {
             dispatch({
-                type: "ROUTES_RECEIVED",
+                type: "DIRECTIONS_RECEIVED",
                 payload: data
             })
         }).catch((err) => {
             console.log("error: ", err);
         })
     }
-}
+};
