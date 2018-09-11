@@ -1,10 +1,13 @@
 import { Provider } from "../../node_modules/@types/react-redux";
-import { debug } from "util";
 
 let defaultState = {
     providers: [],
     routes: [],
-    directions: []
+    directions: [],
+    stops: [],
+    vehicleLocations: [],
+    // departures: [],
+    timepointDepartures: []
 }
 
 export default function MetroTransitReducer(state = defaultState, action) {
@@ -39,6 +42,34 @@ export default function MetroTransitReducer(state = defaultState, action) {
         })
 
         return { ...state, directions: directions };
+    } else if (action.type === "STOPS_RECEIVED") {
+        let stops = [];
+
+        action.payload.data.map((stop) => {
+            stops.push({
+                value: stop.Value,
+                label: stop.Text
+            })
+        })
+
+        return { ...state, stops: stops };
+    } else if (action.type === "DEPARTURES_RECEIVED") {
+        let departures = [];
+
+        return { ...state, departures: departures };
+    } else if (action.type === "TIMEPOINT_DEPARTURES_RECEIVED") {
+        let timepointDepartures = [];
+
+        action.payload.data.map((timepointDeparture) => {
+            timepointDepartures.push({
+                departureText: timepointDeparture.DepartureText,
+                departureTime: timepointDeparture.DepartureTime,
+                description: timepointDeparture.Description,
+                terminal: timepointDeparture.Terminal,
+            })
+        })
+
+        return { ...state, timepointDepartures: timepointDepartures };
     } else {
         return state;
     }
